@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Main from "./components/Main/Main";
+import Mail from "./pages/Mail";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/mail" element={<Mail />} />
               </Route>
             </Route>
           </Route>

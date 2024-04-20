@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import {FaSignInAlt, FaUser, FaSignOutAlt} from 'react-icons/fa';
+import {FaSignInAlt, FaUser, FaSignOutAlt, FaEnvelopeOpen} from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../features/auth/authSlice';
 
@@ -24,6 +24,11 @@ function Header() {
             </div>
             <ul className='flex gap-2 justify-center items-center'>
                 {user ? (<>
+                    <li>
+                        <Link to={'/mail'} className='flex gap-2 justify-center items-center'>
+                            <FaEnvelopeOpen /> Mail [ 0 ]
+                        </Link>
+                    </li>
                     <li>
                         <button onClick={onLogout} className='flex gap-2 justify-center items-center'>
                             <FaSignOutAlt /> Logout
