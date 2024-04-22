@@ -76,9 +76,28 @@ const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.user);
 });
 
+// @desc    Get user list without me
+// @route   GET /api/users/userlist
+// @access  Privat
+const getUserList = asyncHandler(async (req, res) => {
+  try {
+    const loggedInUserId = req.user._id;
+
+    //Get Users Data without password
+    const allUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
+      "-password"
+    );
+
+    res.status(200).json(allUsers);
+  } catch (error) {
+    res.status(500);
+    throw new Error("Internal server error");
+  }
+});
+
 //Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
-module.exports = { registerUser, loginUser, getMe };
+module.exports = { registerUser, loginUser, getMe, getUserList };
