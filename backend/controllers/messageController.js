@@ -35,6 +35,8 @@ const sendMessage = asyncHandler(async (req, res) => {
       conversation.messages.push(newMessage._id);
     }
 
+    //TODO: Real Time - WebSocet functionality
+
     //Save Message in Conversation [Save secound after first]
     // await conversation.save();
     // await newMessage.save();
@@ -50,4 +52,29 @@ const sendMessage = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { sendMessage };
+// @desc    Send Message
+// @route   GET /api/messages/:id
+// @access  Privat
+const getMessages = asyncHandler(async (req, res) => {
+  try {
+    const { id: receiverId } = req.params;
+    const senderId = req.user._id;
+
+    //Find participants in Conversation collection and show messages (populate method)
+    const conversation = await Conversation.findOne({
+      participants: { $all: [senderId, receiverId] },
+    }).populate("messages");
+
+    //When conversation didnt exist return empty array
+    if (!conversation) return res.status(200).json([]);
+
+    const messages = conversation.messages;
+
+    res.status(200).json(messages);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Something went wrong. I can't read this chat.");
+  }
+});
+
+module.exports = { sendMessage, getMessages };
