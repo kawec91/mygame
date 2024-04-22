@@ -16,6 +16,7 @@ app.use(errorHandler);
 
 //Routes
 app.use("/api/users/", require("./routes/userRoutes"));
+app.use("/api/messages/", require("./routes/messageRoutes"));
 
 //Server Listener
 app.listen(port, () => {
