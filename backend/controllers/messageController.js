@@ -35,6 +35,14 @@ const sendMessage = asyncHandler(async (req, res) => {
       conversation.messages.push(newMessage._id);
     }
 
+    //Save Message in Conversation [Save secound after first]
+    // await conversation.save();
+    // await newMessage.save();
+
+    //FIX
+    //Save Message and Conversation at the same time (Parallel)
+    await Promise.all([conversation.save(), newMessage.save()]);
+
     res.status(201).json(newMessage);
   } catch (error) {
     res.status(400);
