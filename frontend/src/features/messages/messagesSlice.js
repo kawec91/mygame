@@ -7,6 +7,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
   user: user ? user : null,
   conversations: [],
+  selectedConversation: "",
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -35,10 +36,14 @@ export const messagesSlice = createSlice({
   initialState,
   reducers: {
     resetConversations: (state) => {
+      state.selectedConversation = "";
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = false;
       state.message = "";
+    },
+    setSelectedConversation: (state, action) => {
+      state.selectedConversation = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -60,5 +65,6 @@ export const messagesSlice = createSlice({
   },
 });
 
-export const { resetConversations } = messagesSlice.actions;
+export const { resetConversations, setSelectedConversation } =
+  messagesSlice.actions;
 export default messagesSlice.reducer;
