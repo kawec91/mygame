@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Conversation = require("../models/conversationModel");
 const Message = require("../models/messasgeModel");
+const User = require("../models/userModel");
 
 // @desc    Send Message
 // @route   POST /api/messages/send/:id
@@ -52,8 +53,8 @@ const sendMessage = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Send Message
-// @route   GET /api/messages/:id
+// @desc    Get Messages With User X
+// @route   GET /api/messages/conversation/:id
 // @access  Privat
 const getMessages = asyncHandler(async (req, res) => {
   try {
@@ -77,4 +78,22 @@ const getMessages = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { sendMessage, getMessages };
+// @desc    Get Conversations
+// @route   GET /api/messages/
+// @access  Privat
+const getConversations = asyncHandler(async (req, res) => {
+  try {
+    const loggedInUserId = req.user._id;
+    //Get Users Data without password
+    const allUsers = await User.find({ _id: { $ne: loggedInUserId } }).select(
+      "-password"
+    );
+
+    res.status(200).json(allUsers);
+  } catch (error) {
+    res.status(500);
+    throw new Error("Internal server error");
+  }
+});
+
+module.exports = { sendMessage, getMessages, getConversations };

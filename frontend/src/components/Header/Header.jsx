@@ -20,7 +20,7 @@ function Header() {
     <>
         <header className='flex justify-between p-4 items-center border-b-[1px] border-b-black'>
             <div>
-                Logo
+                <Link to={'/'}>Logo</Link>
             </div>
             <ul className='flex gap-2 justify-center items-center'>
                 {user ? (<>
