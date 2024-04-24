@@ -17,6 +17,9 @@ const conversationsSlice = createSlice({
     selectOption: (state, action) => {
       state.selected = action.payload;
     },
+    defaultSelect: (state, action) => {
+      state.selected = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,6 +57,6 @@ export const getConversationsList = createAsyncThunk(
   }
 );
 
-export const { selectOption } = conversationsSlice.actions;
+export const { selectOption, defaultSelect } = conversationsSlice.actions;
 
 export default conversationsSlice.reducer;

@@ -34,7 +34,11 @@ function ConversationMessages() {
   }, [dispatch, isError, isSucces, message]);
 
   if (isLoading) return <Spinner />;
-  return <>{allMsg}</>;
+  return (
+    <div className="w-full p-2 border border-blue-500 rounded flex flex-col gap-4">
+      {allMsg}
+    </div>
+  );
 }
 
 export default ConversationMessages;
