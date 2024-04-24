@@ -8,7 +8,7 @@ function Main() {
   const { user } = useSelector((state) => state.auth);
   return (
     <>
-        <main className='flex'>
+        <main className='flex w-full'>
             {user ? <LeftNavBar /> : <></>}
             <Outlet />
             {user ? <RightNavBar /> : <></>}

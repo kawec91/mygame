@@ -15,7 +15,7 @@ function ConversationsList() {
     dispatch(getConversationsList());
   }, [dispatch]);
   return (
-    <div>
+    <div className="border-r-[1px] border-r-black p-2 flex flex-col gap-2">
       {options.map((item) => (
         <ConversationsListBar key={item._id} data={item} />
       ))}
