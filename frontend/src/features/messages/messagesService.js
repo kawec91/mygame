@@ -13,6 +13,22 @@ const getConversationsListFromBackend = async (userData) => {
   return response.data;
 };
 
-const messagesService = { getConversationsListFromBackend };
+const getConversationMessagesFromBackend = async (userData) => {
+  const respone = await axios.get(
+    API_URL + "conversation/" + userData.selectedConvestaion,
+    { headers: { Authorization: "Bearer " + userData.user.token } }
+  );
+
+  if (respone.data) {
+    return respone.data;
+  }
+
+  return respone.data;
+};
+
+const messagesService = {
+  getConversationsListFromBackend,
+  getConversationMessagesFromBackend,
+};
 
 export default messagesService;

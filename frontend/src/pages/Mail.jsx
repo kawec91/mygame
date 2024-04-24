@@ -1,38 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getConversationsList, resetConversations } from '../features/messages/messagesSlice';
-import { toast } from 'react-toastify';
-import Conversation from '../components/Conversation/Conversation';
-import Spinner from '../components/Spinner/Spinner';
-import ConversationChat from '../components/Conversation/ConversationChat';
+import React from 'react';
+import ConversationsList from '../components/ConversationsList/ConversationsList';
+import ConversationMessages from '../components/ConversationMessages/ConversationMessages';
 
 function Mail() {
-  const dispatch = useDispatch();
-
-  //TODO:Style
-  //TODO: Load Chat Component with Messages
-  const { user,conversations, selectedConvestaion, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.messages
-  );
-
-  useEffect(()=>{
-    if(isError){
-      toast.error(message);
-    }
-
-    dispatch(getConversationsList(user));
-  },[dispatch]);
-
- 
   return (
-    <div className='w-full p-2 flex'>
+    <div className='flex p-2 w-full'>
+      <ConversationsList />
       <div>
-        {isLoading ? <Spinner /> : conversations.map((conversation) => <Conversation key={conversation._id} conversation={conversation} />)}
+        <ConversationMessages />
       </div>
-      <div>
-        {selectedConvestaion === undefined ? <div>Empty</div> : <ConversationChat conversation={selectedConvestaion}/>}
-      </div>
-      
     </div>
   )
 }

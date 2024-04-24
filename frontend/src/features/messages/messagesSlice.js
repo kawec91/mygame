@@ -8,6 +8,7 @@ const initialState = {
   user: user ? user : null,
   conversations: [],
   selectedConversation: "",
+  conversationMessages: [],
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -19,6 +20,25 @@ export const getConversationsList = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       return await messagesService.getConversationsListFromBackend(user);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getConversationMessages = createAsyncThunk(
+  "messages/conversationMessages",
+  async (userState, thunkAPI) => {
+    try {
+      return await messagesService.getConversationMessagesFromBackend(
+        userState
+      );
     } catch (error) {
       const message =
         (error.response &&
@@ -61,6 +81,21 @@ export const messagesSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.conversations = [];
+      })
+      .addCase(getConversationMessages.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getConversationMessages.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.selectedConversation = "";
+        state.conversationMessages = [];
+      })
+      .addCase(getConversationMessages.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.conversationMessages = action.payload;
       });
   },
 });
