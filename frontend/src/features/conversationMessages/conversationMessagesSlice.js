@@ -15,7 +15,7 @@ const conversationMessageSlice = createSlice({
   name: "conversationMessages",
   reducers: {
     resetMessages: (state) => {
-      state.messages = null;
+      state.messages = [];
       state.isLoading = false;
       state.isError = false;
       state.isSucces = false;
@@ -77,7 +77,6 @@ export const sendMessage = createAsyncThunk(
   "conversationMessages/sendMessage",
   async (messageData, thunkAPI) => {
     try {
-      console.log("SendMessageSlice: ", messageData);
       return await conversationMessageService.sendConversationMessageToBackend(
         messageData
       );

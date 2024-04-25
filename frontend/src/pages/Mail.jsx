@@ -1,11 +1,10 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect} from 'react';
 import ConversationsList from '../components/ConversationsList/ConversationsList';
 import ConversationMessages from '../components/ConversationMessages/ConversationMessages';
 import { useDispatch, useSelector } from 'react-redux';
 import ConversationInputArea from '../components/ConversationInputArea/ConversationInputArea';
 import ConversationNoChosen from '../components/ConversationNoChosen/ConversationNoChosen';
-import { defaultSelect } from '../features/conversations/conversationsSlice';
-import { getConversationMessagesById, resetMessages } from '../features/conversationMessages/conversationMessagesSlice';
+import { getConversationMessagesById } from '../features/conversationMessages/conversationMessagesSlice';
 
 function Mail() {
   const dispatch = useDispatch();
