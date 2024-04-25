@@ -15,10 +15,14 @@ function ConversationsList() {
     dispatch(getConversationsList());
   }, [dispatch]);
   return (
-    <div className="border-r-[1px] border-r-black p-2 flex flex-col gap-2">
-      {options.map((item) => (
-        <ConversationsListBar key={item._id} data={item} />
-      ))}
+    <div className="border-r-[1px] border-r-black flex flex-col p-2 gap-2 min-w-fit">
+      <div>TODO Searchbar</div>
+      <hr />
+      <div className="flex flex-col gap-2 ">
+        {options.map((item) => (
+          <ConversationsListBar key={item._id} data={item} />
+        ))}
+      </div>
     </div>
   );
 }

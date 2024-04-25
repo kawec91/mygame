@@ -36,6 +36,18 @@ const conversationMessageSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(sendMessage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(sendMessage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSucces = true;
+      })
+      .addCase(sendMessage.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });
@@ -49,6 +61,25 @@ export const getConversationMessagesById = createAsyncThunk(
       thunkAPI.dispatch(selectOption(conversationId));
       return await conversationMessageService.getConversationMessagesFromBackend(
         userData
+      );
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const sendMessage = createAsyncThunk(
+  "conversationMessages/sendMessage",
+  async (messageData, thunkAPI) => {
+    try {
+      console.log("SendMessageSlice: ", messageData);
+      return await conversationMessageService.sendConversationMessageToBackend(
+        messageData
       );
     } catch (error) {
       const message =

@@ -9,9 +9,11 @@ function ConversationsListBar({ data }) {
   const clickHandler = () => {
     dispatch(getConversationMessagesById(data._id));
   };
-
+  useEffect(() => {
+    selected === data._id ? setChoice(true) : setChoice(false);
+  }, [selected]);
   return (
-    <div onClick={clickHandler} className={`p-2`}>
+    <div onClick={clickHandler} className={`p-2 ${choice && "bg-yellow-500"}`}>
       {data.email} | {data.name}
     </div>
   );
