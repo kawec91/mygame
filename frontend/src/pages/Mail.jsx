@@ -15,7 +15,7 @@ function Mail() {
     dispatch(getConversationMessagesById(selected))
   }
     
-  }, [dispatch]);
+  }, [dispatch, selected]);
   return (
     <div className='flex w-full'>
       <ConversationsList />

@@ -6,7 +6,7 @@ const myUser = JSON.parse(localStorage.getItem("user"));
 
 const authAxios = axios.create({
   baseURL: API_URL,
-  headers: { Authorization: "Bearer " + myUser.token },
+  headers: { Authorization: "Bearer " + myUser?.token },
 });
 
 const getConversationMessagesFromBackend = async (userData) => {

@@ -3,8 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getConversationMessagesById } from "../../features/conversationMessages/conversationMessagesSlice";
 import { getConversationsList } from "../../features/conversations/conversationsSlice";
 import ConversationsListBar from "../ConversationsListBar/ConversationsListBar";
+import { useSocketContext } from "../../context/SocketContext";
 
 function ConversationsList() {
+  const { onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes();
   const dispatch = useDispatch();
   const conversations = useSelector((state) => state.conversationMenu);
   const options = conversations.conversationsList
